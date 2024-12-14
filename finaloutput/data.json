@@ -1,0 +1,15 @@
+[
+    { "title": "Abstract Vision", "description": "A vibrant abstract painting featuring a detailed eye amidst bold, chaotic swirls of vivid colors like blue, red, and green, evoking mystery and emotion.", "imageUrl": "artimages/art1.jpeg" },
+    { "title": "Enchanted Beauty", "description": "A stunning portrait of a woman with striking eyes, adorned with vibrant flowers and butterflies in bold, vivid hues, blending realism and surrealism.", "imageUrl": "artimages/art2.jpeg" },
+    { "title": "Colorful Gaze", "description": "A vibrant close-up painting of an eye, bursting with colorful strokes of blue, green, yellow, and pink, radiating energy and emotion.", "imageUrl": "artimages/art3.jpeg" },
+    { "title": "Autumnal Path", "description": " A vibrant, impressionistic landscape painting showcasing a colorful autumnal forest with a winding path bathed in ethereal light", "imageUrl": "artimages/art4.jpeg" },
+    { "title": "Sunset Sentinel", "description": " A solitary figure stands in awe against a backdrop of a majestic tree silhouetted against a fiery sunset over a vast, rugged landscape.", "imageUrl": "artimages/art5.png" },
+    { "title": "Radiance in Bloom", "description": " A vibrant, textured portrait of a woman adorned with yellow flowers, bathed in golden light, exuding warmth and vitality.", "imageUrl": "artimages/art6.jpg" },
+    { "title": "Pathway to Spring Bliss", "description": " A dreamy, vibrant landscape of colorful blossoms and lush trees lining a sunlit winding path.", "imageUrl": "artimages/art7.jpg" },
+    { "title": "Serene Paradise", "description": " A picturesque paradise with cascading waterfalls, vibrant flowers, and a serene lake.", "imageUrl": "artimages/art8.jpg" },
+    { "title": "Celestial Oasis", "description": " A surreal landscape where a mystical island emerges from a celestial sea, bathed in otherworldly light", "imageUrl": "artimages/art9.jpg" },
+    { "title": "Ethereal Haven", "description": "A dreamlike vision of an island bathed in ethereal light, surrounded by a cosmic sea.", "imageUrl": "artimages/art10.jpg" },
+    { "title": "Dreamscape Island", "description": " A celestial haven where a lush island rises from a sea of stars, inviting contemplation and wonder.", "imageUrl": "artimages/art11.jpg" },
+    { "title": " Cosmic Cradle", "description": " A solitary island bathed in celestial light, emerging from a cosmic sea, like a cradle for the stars.", "imageUrl": "artimages/art12.jpg" }
+
+]

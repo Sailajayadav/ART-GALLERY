@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>360 Image Interaction with Popup</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Dancing+Script:wght@400..700&family=Kaushan+Script&family=Playwrite+AU+NSW:wght@100..400&family=Playwrite+AU+QLD:wght@100..400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      body{
+        font-family: "Cinzel Decorative", serif;
+  font-weight: 200;
+  font-style: normal;
+      }
+      /* Style for the popup */
+      #popup {
+        position: absolute;
+        top: 50%;
+        left: 69.5%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        display: none; /* Initially hidden */
+        max-width: 300px;
+        text-align: center;
+        z-index: 9999;
+      }
+
+      /* Hover effect on images */
+      .interactive {
+        transition: transform 0.3s ease, filter 0.3s ease;
+      }
+
+      .interactive:hover {
+        transform: scale(1.1) rotate(5deg);
+        filter: brightness(1.2) contrast(1.5);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene>
+      <!-- 360-Degree Background -->
+      <a-sky
+        src="M3_UHD_Render_equirectangular-jpg_Design_a_3D_artistic_2063157335_12667547 - Copy.jpg"
+      ></a-sky>
+
+      <!-- Interactive Images -->
+      <a-image
+        src="nri.png"
+        position="8.5 5 -20"
+        scale="-17 10 1"
+        rotation="0 -40 0"
+        id="image-1"
+        class="interactive"
+      ></a-image>
+
+      <a-image
+        src="nriit.jpg"
+        position="-15 4 -70"
+        scale="-30 30 1"
+        rotation="0 140 0"
+        id="image-2"
+        class="interactive"
+      ></a-image>
+      
+      <a-image
+        src="codegan.jpg"
+        position="40 2 -20"
+        scale="-20 20 1"
+        rotation="0 140 0"
+        id="image-3"
+        class="interactive"
+      ></a-image>
+
+      <a-image
+        src="last.webp"
+        position="23 13 100"
+        scale="-20 20 1"
+        rotation="0 50 0"
+        id="image-4"
+        class="interactive"
+      ></a-image>
+
+      <a-image
+        src="3.jpg"
+        position="-45 30 150"
+        scale="-40 45 1"
+        rotation="0 140 0"
+        id="image-5"
+        class="interactive"
+      ></a-image>
+
+      <a-image
+        src="2.jpg"
+        position="-45 80 150"
+        scale="-40 45 1"
+        rotation="0 140 0"
+        id="image-6"
+        class="interactive"
+      ></a-image>
+
+      <a-image
+        src="1.jpg"
+        position="-330 60 150"
+        scale="-80 80 1"
+        rotation="0 140 0"
+        id="image-7"
+        class="interactive"
+      ></a-image>
+
+      <a-image
+        src="banana1.jpeg.jpg"
+        position="-330 170 150"
+        scale="-80 100 1"
+        rotation="0 140 0"
+        id="image-8"
+        class="interactive"
+      ></a-image>
+
+      <!-- Add a cursor for interactivity -->
+      <a-camera>
+        <a-cursor color="yellow"></a-cursor>
+      </a-camera>
+    </a-scene>
+
+    <!-- Popup element (hidden initially) -->
+    <div id="popup">
+      <h2 id="popup-head">Information</h2>
+      <p id="popup-text">This is an interactive image. Hover to explore!</p>
+      <div class="chat"> <a href="https://bot.dialogflow.com/e2ac4541-eef5-49ae-a1d5-4d47ecdb1190"><i class="fa-regular fa-comment"></i></a>  </div>
+    </div>
+
+    <script>
+      // Select the image elements
+      const images = [
+        document.querySelector("#image-1"),
+        document.querySelector("#image-2"),
+        document.querySelector("#image-3"),
+        document.querySelector("#image-4"),
+        document.querySelector("#image-5"),
+        document.querySelector("#image-6"),
+        document.querySelector("#image-7"),
+        document.querySelector("#image-8"),
+      ];
+      const m1 = document.querySelector('#image-1');
+      const popup = document.querySelector("#popup");
+      const popupText = document.querySelector("#popup-text");
+      const popupHead = document.querySelector("#popup-head");
+
+      // Define the text for each image
+      const popupTexts = {
+        "image-1": "This is the first image! Here you can see a beautiful view of the city. Explore the details by interacting with this image.",
+        "image-2": "The NRI Institute of Technology (NRIIT) is an educational institution in India that offers undergraduate and postgraduate programs, primarily in engineering and technology fields..",
+        "image-3": "Codegnan IT Solutions is a technology company and training institute specializing in providing software solutions and skill-based education in cutting-edge technologies.",
+        "image-4": "Las Meninas is a 1656 painting in the Museo del Prado in Madrid, by Diego Velázquez, the leading artist of the Spanish Baroque",
+        "image-5": "The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance, it has been described as the best known, the most visited, the most written about, the most sung about, [and] the most parodied work of art in the world",
+        "image-6": "The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh, painted in June 1889. It depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an imaginary village.",
+        "image-7": "Girl with a Pearl Earring is an oil painting by Dutch Golden Age painter Johannes Vermeer, dated c. 1665. Going by various names over the centuries, it became known by its present title towards the end of the 20th century because of the earring worn by the girl portrayed there",
+        "image-8": "Congratulations. A banana that for years has stirred controversy in the art world sold for $6.2 million with fees at Sotheby's contemporary art auction on Wednesday night. It became what is arguably the most expensive fruit in the world — though it will likely be tossed in a couple days.",
+      };
+      const popupHeads = {
+        "image-1": "NRIIT",
+        "image-2": "NRIIT",
+        "image-3": "SAKETH REDDY",
+        "image-4": "LAS MENINAS",
+        "image-5": "MONALISA",
+        "image-6": "STARY NIGHT",
+        "image-7": "PEARL EARRING GIRL",
+        "image-8": "BANANA",
+      };
+
+      // Show popup when mouse enters the image
+      images.forEach((image) => {
+        image.addEventListener("mouseenter", () => {
+          popup.style.display = "block"; // Show popup
+          popup.style.boxShadow = "0px 0px 20px 10px rgba(255, 215, 0, 6)";
+          m1.style.boxShadow = "0px 0px 20px 10px rgba(255, 215, 0, 6)";
+          const imageId = image.getAttribute("id");
+          popupText.textContent = popupTexts[imageId]; // Update popup text based on image
+          popupHead.textContent = popupHeads[imageId]; // Update popup text based on image
+        });
+
+        image.addEventListener("mouseleave", () => {
+          popup.style.display = "none"; // Hide popup
+        });
+      });
+    </script>
+  </body>
+</html>

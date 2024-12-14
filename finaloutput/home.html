@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Button to navigate to another HTML file -->
+    <div class="navigation" style="margin-top: 20px; text-align: center;">
+        <a href="templates/index.html" class="navigate-btn" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Search By Image</a>
+    </div>
+    <!-- Button to view 3D art gallery -->
+    <div class="top-right">
+        <a href="second.html" id="viewGalleryBtn">View 3D Art Gallery</a>
+    </div>
+
+    <!-- Main content section -->   
+    <div class="container">
+        <!-- Art cards section -->
+        <div class="art-cards" id="artCardsContainer">
+            <!-- Cards will be dynamically generated here -->
+        </div>
+
+        <!-- Chatbot section -->
+        <div class="chatbot">
+            <div class="chatbot-header">
+                <h4>Hey..! How can I assist you?</h4>
+            </div>
+            <div class="chatbot-body">
+                <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/e2ac4541-eef5-49ae-a1d5-4d47ecdb1190"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <img id="modalImage" src="" alt="Art Image">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <!-- Circular Chatbot button -->
+    <button id="chatbotButton" class="chatbot-btn" onclick="toggleChatbot()">💬</button>
+
+    <!-- Link to JavaScript file -->
+    <script src="scripts.js"></script>
+
+    <script>
+        // Image similarity form handling
+        const form = document.querySelector('form');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                alert("Please select an image file to upload.");
+                return;
+            }
+
+            const formData = new FormData(form);
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            const imageElement = document.getElementById('similar_image');
+            const scoreElement = document.getElementById('similarity_score');
+            const belowThresholdMessage = document.getElementById('below_threshold_message');
+
+            if (data.below_threshold) {
+                belowThresholdMessage.style.display = 'block';
+                imageElement.style.display = 'none';
+                scoreElement.textContent = '';
+            } else {
+                imageElement.src = data.most_similar_image;
+                imageElement.style.display = 'block';
+                scoreElement.textContent = "Similarity Score: " + data.similarity_score.toFixed(2);
+                belowThresholdMessage.style.display = 'none';
+            }
+        };
+
+        // Toggle the visibility of the chatbot
+        function toggleChatbot() {
+            var chatbot = document.getElementById("chatbotPopup");
+            if (chatbot.style.display === "none" || chatbot.style.display === "") {
+                chatbot.style.display = "block";  // Show the chatbot
+            } else {
+                chatbot.style.display = "none";   // Hide the chatbot
+            }
+        }
+    </script>
+
+</body>
+</html>

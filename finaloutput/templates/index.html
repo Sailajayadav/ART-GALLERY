@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Similarity</title>
+    <link rel="stylesheet" href="CS.css">
+</head>
+<body>
+    <h1>Uploaded Image</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" accept="image/*" required>
+        <button type="submit" id="uploadButton">Upload</button>
+    </form>
+
+    <div id="result">
+        <h2>Most Similar Image</h2>
+        <img id="similar_image" src="" alt="Most similar image will appear here" style="display: none; width: 300px; height: auto;">
+        <p id="similarity_score"></p>
+        <div id="below_threshold_message" style="display: none; margin-top: 20px;">
+            <p>Hey, I tried to match your image to the best of my ability, but it may not be the exact one you're looking for. Kindly reach out to support by filling out this form: 
+                <a href="https://docs.google.com/forms/d/1gM6dmB9j6ylJBGZF3uQxto2k1HIPBUTEfeDfK7EK6Ns/edit" target="_blank">Support Form</a>
+            </p>
+            <img src="{{ url_for('static', filename='oops.png') }}" alt="Oops!" style="width: 200px;">
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                alert("Please select an image file to upload.");
+                return;
+            }
+
+            const formData = new FormData(form);
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            const imageElement = document.getElementById('similar_image');
+            const scoreElement = document.getElementById('similarity_score');
+            const belowThresholdMessage = document.getElementById('below_threshold_message');
+
+            if (data.below_threshold) {
+                belowThresholdMessage.style.display = 'block';
+                imageElement.style.display = 'none';
+                scoreElement.textContent = '';
+            } else {
+                imageElement.src = data.most_similar_image;
+                imageElement.style.display = 'block';
+                scoreElement.textContent = "Similarity Score: " + data.similarity_score.toFixed(2);
+                belowThresholdMessage.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
