@@ -1,0 +1,13 @@
+{
+    "builds": [{
+      "src": "finaloutput/signup.html",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
+    }],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "finaloutput/signup.html"
+      }
+    ]
+  }
